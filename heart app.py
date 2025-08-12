@@ -2,32 +2,24 @@ import streamlit as st
 import pandas as pd
 import pickle
 
-
-selected_features = X.columns[selector.get_support()].tolist()
-
-with open("selected_features.pkl", "wb") as f:
-    pickle.dump(selected_features, f)
-
-# Load saved model and selected features
 @st.cache_resource
 def load_model():
     with open("heart_disease.sav", "rb") as f:
         return pickle.load(f)
 
 @st.cache_data
-def load_features():
+def load_selected_features():
     with open("selected_features.pkl", "rb") as f:
         return pickle.load(f)
 
 model = load_model()
-selected_features = load_features()
+selected_features = load_selected_features()
 
-st.title("❤️ Heart Disease Prediction (No Scaler)")
+st.title("❤️ Heart Disease Prediction")
 
 user_input = {}
 for feature in selected_features:
-    val = st.number_input(f"Enter {feature}", value=0.0)
-    user_input[feature] = val
+    user_input[feature] = st.number_input(f"Enter {feature}", value=0.0)
 
 input_df = pd.DataFrame([user_input])
 
@@ -40,6 +32,4 @@ if st.button("Predict"):
         else:
             st.success(f"✅ Low risk of heart disease. Probability: {proba:.2f}")
     except Exception as e:
-        st.error(f"Error during prediction: {e}")
-
-
+        st.error(f"Prediction error: {e}")
