@@ -2,6 +2,12 @@ import streamlit as st
 import pandas as pd
 import pickle
 
+
+selected_features = X.columns[selector.get_support()].tolist()
+
+with open("selected_features.pkl", "wb") as f:
+    pickle.dump(selected_features, f)
+
 # Load saved model and selected features
 @st.cache_resource
 def load_model():
@@ -35,4 +41,5 @@ if st.button("Predict"):
             st.success(f"✅ Low risk of heart disease. Probability: {proba:.2f}")
     except Exception as e:
         st.error(f"Error during prediction: {e}")
+
 
