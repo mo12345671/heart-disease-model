@@ -6,7 +6,7 @@ import pickle
 def load_model():
     with open("heart_disease.sav", "rb") as f:
         return pickle.load(f)
-selected_features = X.columns[selector.get_support()].tolist()
+selected_features = x.columns[selector.get_support()].tolist()
 @st.cache_data
 def load_selected_features():
     with open("selected_features.pkl", "rb") as f:
@@ -33,3 +33,4 @@ if st.button("Predict"):
             st.success(f"✅ Low risk of heart disease. Probability: {proba:.2f}")
     except Exception as e:
         st.error(f"Prediction error: {e}")
+
