@@ -5,7 +5,7 @@ import pickle
 # Load saved model and selected features
 @st.cache_resource
 def load_model():
-    with open("heart_disease_model.sav", "rb") as f:
+    with open("heart_disease.sav", "rb") as f:
         return pickle.load(f)
 
 @st.cache_data
@@ -35,3 +35,4 @@ if st.button("Predict"):
             st.success(f"✅ Low risk of heart disease. Probability: {proba:.2f}")
     except Exception as e:
         st.error(f"Error during prediction: {e}")
+
