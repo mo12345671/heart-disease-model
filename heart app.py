@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 MODEL_FILE = "heart_disease.sav"
-DATA_FILE = "heart.csv"
+DATA_FILE = "heart_disease_data.csv"
 
 st.title("❤️ Heart Disease Prediction")
 
@@ -47,3 +47,4 @@ if model:
             st.error(f"⚠️ High risk of heart disease (probability: {prob:.2f})")
         else:
             st.success(f"✅ Low risk of heart disease (probability: {prob:.2f})")
+
