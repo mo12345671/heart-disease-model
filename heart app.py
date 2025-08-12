@@ -50,7 +50,7 @@ st.markdown("""
 
 # Load the pre-trained model
 try:
-    model_path = r"C:\Users\almanar\OneDrive\Desktop\heart model\heart_disease.sav"
+    model_path = r"heart_disease.sav"
     with open(model_path, 'rb') as f:
         model = pickle.load(f)
 except FileNotFoundError:
@@ -235,4 +235,5 @@ def main():
         """)
 
 if __name__ == '__main__':
+
     main()
