@@ -47,15 +47,14 @@ def train_and_save_model(test_size=0.2):
 
     # Save
     pickle.dump(model, open(MODEL_FILE, "wb"))
-    pickle.dump(scaler, open(SCALER_FILE, "wb"))
 
-    return model, scaler, X_train, X_test, y_train, y_test
+
+    return model, X_train, X_test, y_train, y_test
 
 def load_model_and_scaler():
-    if os.path.exists(MODEL_FILE) and os.path.exists(SCALER_FILE):
+    if os.path.exists(MODEL_FILE):
         model = pickle.load(open(MODEL_FILE, "rb"))
-        scaler = pickle.load(open(SCALER_FILE, "rb"))
-        return model, scaler
+        return model
     else:
         return None, None
 
@@ -105,7 +104,7 @@ elif menu == "Model Training":
     fig.update_layout(title="ROC Curve", xaxis_title="False Positive Rate", yaxis_title="True Positive Rate")
     st.plotly_chart(fig)
 
-    st.success("✅ Model & scaler saved successfully!")
+    st.success("✅ Model &  saved successfully!")
 
 # -----------------------------
 # Prediction
@@ -113,8 +112,8 @@ elif menu == "Model Training":
 elif menu == "Prediction":
     st.subheader("Predict Heart Disease Risk")
 
-    model, scaler = load_model_and_scaler()
-    if not model or not scaler:
+    model, scaler = load_model()
+    if not model:
         st.error("❌ Model not found. Please train the model first in the 'Model Training' section.")
     else:
         features = {}
@@ -131,3 +130,4 @@ elif menu == "Prediction":
                 st.error(f"⚠️ High risk of heart disease (Probability: {prob:.2f})")
             else:
                 st.success(f"✅ Low risk of heart disease (Probability: {prob:.2f})")
+
